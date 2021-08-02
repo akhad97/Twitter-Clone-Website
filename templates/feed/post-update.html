@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+    <style>
+        /* form{
+            color: #fff;
+            background-color: #000;
+        } */
+        textarea{
+            background-color:#000 ;
+            color: #fff;
+        }
+        /* textarea:hover{
+            background-color: #fff;
+            color: #000;
+        } */
+    </style>
+</head>
+<div class="container">
+    <h3 class="white-important">
+        {{  tag_line }}
+    </h3>
+    <form method="POST" class="col-12 col-md-6 no-padding pr-3 pr-md-0 form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.img}} <br><br>
+        <img style="height: 250px; width: 450px;" src="{{ post.get_photo_url }}"><br><br>
+        <!-- <input type="file" accept="image/*" name="avatar" style="font-size: 1.2em;"><br><br> -->
+        <fieldset class="form-group">
+            <!-- {{form|crispy}} -->
+            {% render_field form.content class+="myCSSclass" rows="10" cols="80" placeholder=form.content.label %}
+        </fieldset>
+        <!-- <div class="form-group"> -->
+            <button class="btn btn-outline-primary" type="submit">Submit changes</button> <br><br><br>
+            <!-- <a class="btn btn-outline-primary" href="{% url 'home_view' %}">Back To Home</a> -->
+
+        </div>
+    </form>
+</div>
+{% endblock content %}

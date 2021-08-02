@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Settings{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+{% block content %}
+    {% include 'feed/menu.html' %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'feed/left_site.html' %}
+            <div class="col-7 right-container">
+                <h3>Settings</h3>
+                <form method="POST" action="{% url 'settings' %}" enctype="multipart/form-data" style="margin-top: 3em">
+                    {% csrf_token %}
+                    <input name="username" value="{{ user_info.username }}" class="settings-input"><br>
+                    <input name="email" value="{{ user_info.email }}" class="settings-input">
+                    <p style="font-size: 1.8em;">Image</p>
+                    <p style="font-size: 1.4em;">Currently: {{ user_info.profile.avatar }}</p>
+                    <input type="file" accept="image/*" name="avatar" style="font-size: 1.2em;"><br>
+                    <button class="follow" type="submit">Change data</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

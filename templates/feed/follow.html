@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% if follow == 'follows' %}
+         <div class="col-12 no-padding"><br>
+            <h3 class="white-important mb-3">
+                Follows
+            </h3>
+            <div class="pr-3 pl-3" style="text-align: left;">
+                {% for follow in follows %}
+                    <div class="">
+                        <article class="media ">
+                            <div class="result">
+                                <img
+                                class="rounded-circle mr-2"
+                                style="width: 25px; height: 25px;"
+                                src="{% get_media_prefix %}{{ user_profile.avatar }}">
+                    <a class="mr-2 white-important" style="text-transform: lowercase; font-size: 18px; font-weight: normal;" href="{% url 'user_view' follow.follow_user.username %}">
+                        {{ follow.follow_user.username }}
+                    </a>
+                    <p  >{{ follow.follow_user.email }}</p> 
+                    <!-- <hr style="background-color: #fff; width: 250px; height: 0.1px;"> -->
+                            </div>
+
+                                
+                            
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if follow == 'followers' %}
+         <div class="col-12 no-padding">
+            <h3 class="white-important mb-3">
+                Followers
+            </h3>
+            <div class="row pr-3 pl-3">
+                {% for follow in follows %}
+                    <div class="col-6 col-md-3 pl-0">
+                        <article class="media content-section">
+                            <div>
+                                <img
+                                           class="rounded-circle mr-2"
+                                           style="width: 20px; height: 20px;"
+                                           src="{% get_media_prefix %}{{ user_profile.avatar }}">
+                               <a class="mr-2 white-important" href="{% url 'user_view' follow.user.username %}">
+                                   {{ follow.user.username }}
+                               </a>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
+    {% endif %}
+{% endblock content %}

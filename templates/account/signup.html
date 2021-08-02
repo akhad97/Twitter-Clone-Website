@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href=" {% static 'login_style.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="position-absolute w-100 p-4 d-flex flex-column align-items-end">
+        <div class="w-25">
+        </div>
+    </div>
+
+    <form class="form-signin" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        <i class="fab fa-twitter logo"></i>
+        <h5>Please sign up</h5>
+        <label for="id_email" class="sr-only">E-mail:</label>
+        <input type="text" name="email" placeholder="E-mail address" autofocus="autofocus" required id="id_email"
+               class="form-control">
+        <label for="id_username" class="sr-only">Username:</label>
+        <input type="text" name="username" placeholder="Username" minlength="1" maxlength="150"
+               required id="id_username" class="form-control">
+        <label for="id_password1" class="sr-only">Password:</label>
+        <input type="password" name="password1" placeholder="Password" required id="id_password1" class="form-control">
+        <label for="id_password2" class="sr-only">Password (again):</label>
+        <input type="password" name="password2" placeholder="Password (again)" required id="id_password2"
+               class="form-control">
+        <div class="checkbox">
+            <label>
+                Already have an account? <a href="{% url 'account_login' %}"> Sign in</a>
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <div class="alert fixed-top w-100">
+                    <span>{{ error }}</span>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </form>
+
+    <script>
+        setTimeout(function () {
+            for (let element of document.getElementsByClassName("alert")) {
+                element.style.display = "none";
+            }
+        }, 2000);
+    </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container"> <br> <br>
+    <form method="POST" class="col-6 no-padding">
+        {% csrf_token %}
+        <p class="bg-steel p-2"
+           style="border: 1px solid white; border-radius: 4px; word-wrap: break-word; background-color: #fff; color: #000; text-align: left;">
+           {{ post.content }}
+        </p>
+        <img style="height: 350px; width: 550px;" src="{{ post.get_photo_url }}"><br><br>
+        
+        <fieldset class="form-group white-important">
+            Do you really want to delete?
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-primary" type="submit">Delete</button>
+            <a class="btn btn-outline-primary" href="{% url 'home_view' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

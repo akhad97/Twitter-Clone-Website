@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Tweet{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+{% block content %}
+    {% include 'feed/menu.html' %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'feed/left_site.html' %}
+            <div class="col-7 right-container">
+               <h3>Tweets</h3>
+                <div class="new_tweet">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.img}} <br><br>
+                        <!-- <input type="file" name="" style="font-size: 1.2em;"><br><br> -->
+                        <textarea name="content" class="new_tweet_content"></textarea><br>
+                        <button class="new_tweet_submit" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

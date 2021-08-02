@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}User{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .img{
+            height: 350px;
+            width: 550px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include 'feed/menu.html' %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'feed/left_site.html' %}
+            <div class="col-7 right-container">
+                <h3>Tweets</h3>
+                {% for tweet in tweets %}
+                <article class="media content-section hovered-tweet" style="width: 575px;">
+                    <div style="width: 100%; word-break: break-all;">
+    
+                        <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
+                           <div
+                                   style="padding-left: 0px !important;"
+                                   class="col-8 no-padding d-flex align-items-center">
+                               <img
+                                   class="rounded-circle mr-2"
+                                   style="width: 20px; height: 20px;"
+                                   src="{% get_media_prefix %}{{ user_profile.avatar }}">
+                               <a class="mr-2 white-important" href="{% url 'user_view' tweet.author.username %}">
+                                   {{ tweet.author }}
+                               </a>
+                           </div>
+                           <div class="col-4 d-flex flex-row-reverse no-padding align-items-center"
+                                style="padding-right: 0 !important;">
+                               {% if tweet.author == user %}
+                                    <a class="material-icons ml-2"
+                                       style="font-size: 14px"
+                                            href="{% url 'post-delete' tweet.id %}">clear</a>
+                                    <a class="material-icons ml-2"
+                                       style="font-size: 14px"
+                                            href="{% url 'post-update' tweet.id %}">update</a>
+                                {%  endif %}
+                           </div>
+                       </div>
+                        <div
+                                class="mb-2"
+                                style="width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.1)"></div>
+                        <a
+                                style="color: rgba(255, 255, 255, 0.5) !important;"
+                                href="{% url 'post_view' tweet.pk %}">
+                                <p class="mb-4">
+                                    {{ tweet.content }}
+                                </p>
+                                
+                                    <!-- <img style="height: 350px; width: 550px;" src="{{ tweet.get_photo_url }}"><br><br> -->
+                                <!-- {% if tweet %} -->
+                                <div>
+                                    {% if not tweet.get_photo_url %}
+                                    <img src="{{tweet.get_photo_url}}" alt="">
+                                    {% else %}
+                                    <img class="img" src="{{tweet.get_photo_url}}" alt="">
+                                    {% endif %}
+
+                                   
+                                </div><br>
+                                
+                                <!-- {% endif %} -->
+                        </a>
+                        <br>
+                            <div class="row">
+                                <div class="col-6" style="display: flex;">
+                                <small>
+                                     <!-- Like Buttons Here -->
+                                     <a href="#" onClick="document.getElementById('likebutton').submit()"><i  class="fas fa-thumbs-up"></i></a> {{tweet.likes}}   |   <a href="#" onClick="document.getElementById('dislikebutton').submit()"><i  class="fas fa-thumbs-down"></i></a> {{tweet.dislikes}}
+
+
+                                     <form id="likebutton" method="POST" action="{% url 'postpreference' tweet.id 1 %}">
+                                     {% csrf_token %}
+                                     <input type="hidden">
+                                     </form>
+ 
+                                     <form id="dislikebutton" method="POST" action="{% url 'postpreference' tweet.id 2 %}">
+                                     {% csrf_token %}
+                                     <input type="hidden">
+                                     </form>
+                                </small>
+                                    <small style="opacity: 0.4; margin-left:15px;">
+                                        <a href="{% url 'post_view' tweet.pk %}">
+                                            <i style=" font-size: 16px;" class="far fa-comment"></i> {{ tweet.number_of_comments }} comment(s)
+                                        </a>
+    
+                                    </small>
+                                </div>
+                                <div class="col-6">
+                                    <small
+                                            style="opacity: 0.4;"
+                                        class="white-important d-flex full-width flex-row-reverse">
+                                        {{ tweet.add_date | date:"H:i l, d.m.y" }}
+                                    </small>
+                                </div>
+                            </div>
+    
+                    </div>
+                    </article>
+                {% endfor %}
+            <div class="pagination">
+    <span class="step-links">
+        {% if tweets.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ tweets.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ tweets.number }} of {{ tweets.paginator.num_pages }}.
+        </span>
+
+        {% if tweets.has_next %}
+            <a href="?page={{ tweets.next_page_number }}">next</a>
+            <a href="?page={{ tweets.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
