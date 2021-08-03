@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     model = Post
     fields = ('content')
-)
+
 
 
 class UserUpdateForm(forms.ModelForm):
