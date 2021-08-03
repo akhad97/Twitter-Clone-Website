@@ -54,21 +54,14 @@
                                 href="{% url 'post_view' tweet.pk %}">
                                 <p class="mb-4">
                                     {{ tweet.content }}
-                                </p>
-                                
-                                    <!-- <img style="height: 350px; width: 550px;" src="{{ tweet.get_photo_url }}"><br><br> -->
-                                <!-- {% if tweet %} -->
+                                </p>                                
                                 <div>
                                     {% if not tweet.get_photo_url %}
                                     <img src="{{tweet.get_photo_url}}" alt="">
                                     {% else %}
                                     <img class="img" src="{{tweet.get_photo_url}}" alt="">
                                     {% endif %}
-
-                                   
-                                </div><br>
-                                
-                                <!-- {% endif %} -->
+                                </div><br>                                
                         </a>
                         <br>
                             <div class="row">

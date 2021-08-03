@@ -95,34 +95,6 @@ def add_UserProfile(user, **kwargs):
     profile.save()
 
 
-# @login_required(redirect_field_name='account_login')
-# def add_tweet(request):
-#     tweet = Post(content=request.POST.get('content'), author=request.user)
-#     tweet.save()
-#     return redirect('home_view')
-
-
-
-# @login_required(redirect_field_name='account_login')
-# def add_tweet(request): 
-#     # post= get_object_or_404(Post)
-#     post = Post(content=request.POST.get('content'), author=request.user)
-#     if request.method == "POST": 
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save(commit=False)
-#             # tag.post= post
-#             form.save()
-#             return redirect("home_view")
-#     else: 
-#         form = PostForm()
-#     return render(request, "feed/add_tweet.html", {
-#         "form": form,
-#         'post':post,
-#         "user_info": request.user,
-#         "user_profile": UserProfile.objects.get(user=request.user)
-#         })
-
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['content', 'img']
@@ -150,27 +122,6 @@ def is_users(post_user, logged_user):
     return post_user == logged_user
 
 
-# class PostDetailView(DetailView):
-#     model = Post
-#     template_name = 'feed/post-detail.html'
-#     context_object_name = 'post'
-
-#     def get_context_data(self, **kwargs):
-#         data = super().get_context_data(**kwargs)
-#         comments_connected = Comment.objects.filter(post_connected=self.get_object()).order_by('-date_posted')
-#         data['comments'] = comments_connected
-#         data['form'] = NewCommentForm(instance=self.request.user)
-#         return data
-
-#     def post(self, request, *args, **kwargs):
-#         new_comment = Comment(content=request.POST.get('content'),
-#                               author=self.request.user,
-#                               post_connected=self.get_object())
-#         new_comment.save()
-
-#         return self.get(self, request, *args, **kwargs)
-
-
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'feed/post-delete.html'
@@ -184,7 +135,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['content', 'img']
-    # form_class = PostForm
     template_name = 'feed/post-update.html'
     success_url = '/home_view'
 
@@ -199,9 +149,6 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         data = super().get_context_data(**kwargs)
         data['tag_line'] = 'Edit a post'
         return data
-
-
-
 
 
 @login_required(redirect_field_name='account_login')

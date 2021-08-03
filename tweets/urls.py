@@ -10,7 +10,6 @@ urlpatterns = [
 
     path('add_tweet/',  PostCreateView.as_view(), name='add_tweet'),
 
-    # path('tweet/new/', add_tweet, name='add_tweet'),
     path('tweet/<int:pk>/', post_view, name='post_view'),
 
     path('comment/add/<id>', add_comment, name='add_comment'),
@@ -27,7 +26,6 @@ urlpatterns = [
 
     path('post/<int:pk>/preference/<int:userpreference>', postpreference, name='postpreference'),
 
-    # path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/del/', PostDeleteView.as_view(), name='post-delete'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

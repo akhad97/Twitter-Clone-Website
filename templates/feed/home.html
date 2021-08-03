@@ -132,20 +132,13 @@
             <a href="?page={{ tweets.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-
-   
-
                 </div>
-
-                
-                
-
             </div>
             <div class="col-3" style="margin-top: 20px; border-left: 1px solid whitesmoke;"><br><br><br>
                 <div class="wraper">
                     <form method="POST" action="{% url 'search' %}">
                         {% csrf_token %}
-                        <input class="search_bar" style="width: 20em; margin-bottom: 20px;" placeholder="Search" name="search">
+                        <input class="search_bar" style="width: 15em; margin-bottom: 20px;" placeholder="Search" name="search">
                         <button class="search">
                             <i class="fas fa-search"></i>
                         </button>
@@ -160,9 +153,8 @@
                         </div>
                         <ul class="col-12 mt-2" style="text-align: left;">
                             {% for user in users %}
-                            {% if user == request.user %}
-                           
-                            <!-- <p>No User</p> --> 
+
+                            {% if user == request.user %}                           
                             {% else %}
                                 <li>
                                     <div class="who-to-follow">
@@ -192,7 +184,4 @@
         </div>
     </div>
 
-    
-
-    
 {% endblock %}

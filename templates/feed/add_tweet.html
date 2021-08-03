@@ -16,7 +16,6 @@
                     <form method="POST" action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form.img}} <br><br>
-                        <!-- <input type="file" name="" style="font-size: 1.2em;"><br><br> -->
                         <textarea name="content" class="new_tweet_content"></textarea><br>
                         <button class="new_tweet_submit" type="submit">Submit</button>
                     </form>
