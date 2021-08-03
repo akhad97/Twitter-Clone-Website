@@ -7,7 +7,11 @@
            style="border: 1px solid white; border-radius: 4px; word-wrap: break-word; background-color: #fff; color: #000; text-align: left;">
            {{ post.content }}
         </p>
-        <img style="height: 350px; width: 550px;" src="{{ post.get_photo_url }}"><br><br>
+        {% if not tweet.get_photo_url %}
+        <img src="{{tweet.get_photo_url}}" alt="">
+        {% else %}
+        <img class="img" src="{{tweet.get_photo_url}}" alt="">
+        {% endif %}
         
         <fieldset class="form-group white-important">
             Do you really want to delete?
