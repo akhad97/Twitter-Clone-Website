@@ -2,6 +2,13 @@
 
 ### Fully functional Django website that works exactly like real Twitter<br>
 
+
+
+Login: participant
+password: parol1234
+
+
+
 ##### Home page
 ![home page](screens/home.png) <br><br>
 ##### Tweet page
